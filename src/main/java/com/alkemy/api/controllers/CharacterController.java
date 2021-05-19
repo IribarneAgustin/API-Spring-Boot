@@ -1,18 +1,21 @@
 package com.alkemy.api.controllers;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Optional;
-
 import com.alkemy.api.models.CharacterModel;
 import com.alkemy.api.services.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequestMapping("/characters")
 @RestController
@@ -22,12 +25,29 @@ public class CharacterController {
     CharacterService service;
 
     @GetMapping()
-    public ArrayList<CharacterModel> getAll(){
+    public ArrayList<Object[]> getAll(){
         return service.getAll();
     }
 
     @PostMapping("save")
-    public CharacterModel save(@RequestBody CharacterModel character){
+    public CharacterModel save(@RequestParam("file") MultipartFile image, @ModelAttribute CharacterModel character){
+        
+        if(!image.isEmpty()){
+            
+            Path imagesPath = Paths.get("src//main//resources//static//images");
+            String absolutPath = imagesPath.toFile().getAbsolutePath();     
+            try {
+                byte[] bytes = image.getBytes();
+                Path route = Paths.get(absolutPath + image.getOriginalFilename());
+                Files.write(route, bytes);
+                character.setImage(image.getOriginalFilename());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }          
+
+        }
+        
         return service.save(character); 
     }
 
@@ -38,6 +58,14 @@ public class CharacterController {
     @GetMapping(value = "", params="age")
     public CharacterModel getByAge(@RequestParam("age") Integer age){
         return service.getByAge(age);
+    }
+    @GetMapping(value = "", params="weight")
+    public CharacterModel getByWeight(@RequestParam("weight") Double weight){
+        return service.getByWeight(weight);
+    }
+    @GetMapping(value = "", params="idMovie")
+    public ArrayList<CharacterModel> getByMovieId(@RequestParam("idMovie") Integer idMovie){
+        return service.getByMovieId(idMovie);
     }
 
     @DeleteMapping(path = "delete/{id}")

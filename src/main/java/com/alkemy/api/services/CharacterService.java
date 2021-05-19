@@ -15,8 +15,9 @@ public class CharacterService {
     @Autowired
     CharacterRepository characterRepository;
 
-    public ArrayList<CharacterModel> getAll(){
-        return (ArrayList<CharacterModel>) characterRepository.findAll();
+
+    public ArrayList<Object[]> getAll(){
+        return characterRepository.getAll();
     }
     public CharacterModel save(CharacterModel character){
         return characterRepository.save(character);
@@ -28,6 +29,24 @@ public class CharacterService {
 
     public CharacterModel getByAge(Integer age){
         return characterRepository.getByAge(age);
+    }
+    public CharacterModel getByWeight(Double weight){
+        return characterRepository.getByWeight(weight);
+    }
+    public ArrayList<CharacterModel> getByMovieId(Integer movieId){
+
+        ArrayList<CharacterModel> characters = (ArrayList<CharacterModel>) characterRepository.findAll();
+        ArrayList<CharacterModel> toReturn = new ArrayList<>();
+
+        for (CharacterModel character : characters) {
+            ArrayList<Integer> movieIds = character.getFilmId();
+            if(movieIds.contains(movieId)){
+                toReturn.add(character);
+            }            
+        }
+        
+        return toReturn;
+       
     }
     public boolean delete(Integer id){
         try{
