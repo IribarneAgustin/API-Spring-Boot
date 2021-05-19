@@ -4,6 +4,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Optional;
+
 import com.alkemy.api.models.CharacterModel;
 import com.alkemy.api.services.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +31,12 @@ public class CharacterController {
         return service.getAll();
     }
 
+    // El método save sirve tanto para agregar un nuevo registro como para modificarlo
     @PostMapping("save")
     public CharacterModel save(@RequestParam("file") MultipartFile image, @ModelAttribute CharacterModel character){
         
         if(!image.isEmpty()){
-            
+
             Path imagesPath = Paths.get("src//main//resources//static//images");
             String absolutPath = imagesPath.toFile().getAbsolutePath();     
             try {
@@ -49,6 +52,11 @@ public class CharacterController {
         }
         
         return service.save(character); 
+    }
+
+    @GetMapping("/details/{id}")
+    public Optional<CharacterModel> getById(@PathVariable("id") Integer characterId){
+        return service.getById(characterId);
     }
 
     @GetMapping(value = "", params="name")
@@ -78,9 +86,6 @@ public class CharacterController {
             return "No se pudo eleminar el usuario con el id " + id;
         }
     }
-
-    
-
 
     
 }

@@ -12,6 +12,7 @@ public interface CharacterRepository extends CrudRepository<CharacterModel,Integ
     public abstract CharacterModel getByName(String name);
     public abstract CharacterModel getByAge(Integer age);
     public abstract CharacterModel getByWeight(Double weight);
+    
 
     @Query(value = "SELECT name,image FROM characters",nativeQuery = true)
     public ArrayList<Object[]> getAll();

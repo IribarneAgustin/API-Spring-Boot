@@ -19,6 +19,9 @@ public class CharacterService {
     public ArrayList<Object[]> getAll(){
         return characterRepository.getAll();
     }
+    public Optional<CharacterModel> getById(Integer characterId){
+        return characterRepository.findById(characterId);
+    }
     public CharacterModel save(CharacterModel character){
         return characterRepository.save(character);
 
