@@ -1,11 +1,8 @@
 package com.alkemy.api.services;
-
 import java.util.ArrayList;
 import java.util.Optional;
-
 import com.alkemy.api.models.CharacterModel;
 import com.alkemy.api.repositories.CharacterRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class CharacterService {
 
     @Autowired
-    CharacterRepository characterRepository;
+    private CharacterRepository characterRepository;
 
 
     public ArrayList<Object[]> getAll(){
@@ -49,7 +46,6 @@ public class CharacterService {
         }
         
         return toReturn;
-       
     }
     public boolean delete(Integer id){
         try{

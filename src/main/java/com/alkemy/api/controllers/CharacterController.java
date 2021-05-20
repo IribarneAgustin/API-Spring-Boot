@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Optional;
-
 import com.alkemy.api.models.CharacterModel;
 import com.alkemy.api.services.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +52,7 @@ public class CharacterController {
         
         return service.save(character); 
     }
+
 
     @GetMapping("/details/{id}")
     public Optional<CharacterModel> getById(@PathVariable("id") Integer characterId){
