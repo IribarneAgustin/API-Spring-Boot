@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import javax.persistence.*;
 
 
-
 @Entity
 @Table(name = "genres")
 public class GenreModel {

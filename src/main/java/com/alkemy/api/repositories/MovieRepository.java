@@ -9,11 +9,13 @@ import org.springframework.stereotype.Repository;
 public interface MovieRepository extends CrudRepository<MovieModel,Integer>{
 
     public abstract MovieModel getByTitle(String title);
+    public abstract MovieModel getById(Integer movieId);
 
     @Query(value = "SELECT * FROM movies ORDER BY creation_date ASC",nativeQuery = true)
     public ArrayList<MovieModel> getAllByOrderASC();
 
     @Query(value = "SELECT * FROM movies ORDER BY creation_date DESC",nativeQuery = true)
     public ArrayList<MovieModel> getAllByOrderDESC();
+
     
 }

@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Optional;
 import com.alkemy.api.models.MovieModel;
+import com.alkemy.api.services.GenreService;
 import com.alkemy.api.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ public class MovieController {
 
     @Autowired
     private MovieService service;
+    @Autowired
+    private GenreService genreService;
 
     @GetMapping()
     public ArrayList<MovieModel> getAll(){
@@ -37,6 +40,10 @@ public class MovieController {
     @GetMapping(value = "", params="order")
     public ArrayList<MovieModel> getByOrder(@RequestParam("order") String order){
         return service.getByOrder(order);
+    }
+    @GetMapping(value = "", params="genreId")
+    public ArrayList<MovieModel> getByGenre(@RequestParam("genreId") Integer genreId){
+        return genreService.getMoviesByGenreId(genreId);
     }
 
     // El método save sirve tanto para agregar un nuevo registro como para modificarlo

@@ -21,7 +21,6 @@ public class CharacterService {
     }
     public CharacterModel save(CharacterModel character){
         return characterRepository.save(character);
-
     }
     public CharacterModel getByName(String name){
         return characterRepository.getByName(name);

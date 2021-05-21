@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class CharacterController {
 
     @Autowired
-    CharacterService service;
+    private CharacterService service;
 
     @GetMapping()
     public ArrayList<Object[]> getAll(){
