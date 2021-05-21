@@ -1,7 +1,5 @@
 package com.alkemy.api.services;
 import java.util.ArrayList;
-import java.util.Optional;
-
 import com.alkemy.api.models.GenreModel;
 import com.alkemy.api.models.MovieModel;
 import com.alkemy.api.repositories.GenreRepository;
