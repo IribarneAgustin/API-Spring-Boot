@@ -1,5 +1,3 @@
-/*
-
 package com.alkemy.api;
 
 import org.springframework.boot.SpringApplication;
@@ -13,7 +11,7 @@ public class ApiApplication {
 	}
 
 }
-*/
+/*
 package com.alkemy.api;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -41,9 +39,10 @@ public class ApiApplication {
 			http.csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/user").permitAll()
+				.antMatchers(HttpMethod.POST, "/auth/login").permitAll()
 				.anyRequest().authenticated();
 		}
 	}
 
 }
+*/

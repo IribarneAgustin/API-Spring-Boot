@@ -1,16 +1,41 @@
 package com.alkemy.api.models;
+import java.io.Serializable;
 
-public class UserModel {
+import javax.persistence.*;
+
+
+@Entity
+@Table(name = "users")
+public class UserModel implements Serializable{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private Integer id;
+    @Column(unique = true)
     private String username;
     private String password;
+    private String email;
+	@Column(name="ROL")
+	private Byte rol;
 
     public UserModel() {
     }
 
-    public UserModel(String username, String password, String token) {
+    public UserModel(Integer id, String username, String password, String email, Byte rol) {
+        this.id = id;
         this.username = username;
         this.password = password;
-        this.token = token;
+        this.email = email;
+        this.rol = rol;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -29,12 +54,25 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getToken() {
-        return this.token;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Byte getRol() {
+        return this.rol;
+    }
+
+    public void setRol(Byte rol) {
+        this.rol = rol;
+    }
+
+    public UserModel id(Integer id) {
+        setId(id);
+        return this;
     }
 
     public UserModel username(String username) {
@@ -47,19 +85,27 @@ public class UserModel {
         return this;
     }
 
-    public UserModel token(String token) {
-        setToken(token);
+    public UserModel email(String email) {
+        setEmail(email);
         return this;
     }
 
+    public UserModel rol(Byte rol) {
+        setRol(rol);
+        return this;
+    }
 
     @Override
     public String toString() {
         return "{" +
-            " username='" + getUsername() + "'" +
+            " id='" + getId() + "'" +
+            ", username='" + getUsername() + "'" +
             ", password='" + getPassword() + "'" +
-            ", token='" + getToken() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", rol='" + getRol() + "'" +
             "}";
     }
-    private String token;
+
+
+  
 }
