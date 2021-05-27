@@ -6,7 +6,6 @@ import com.alkemy.api.models.UserModel;
 import com.alkemy.api.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -25,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserModel user = userRepository.getByUsername(username);
 		return new User(user.getUsername(), user.getPassword(), 
-				true, true,true, true , buildgrante(user.getRol()) );
+				true, true,true, true , buildgrante(user.getRol()));
 	}
 	
 	public List<GrantedAuthority> buildgrante(byte rol){

@@ -19,6 +19,7 @@ public class CharacterModel {
     private String image;
     private Integer age;
     private Double weight;
+    @Column(name="history", length = 600)
     private String history;
     private ArrayList<Integer> filmId = new ArrayList<>();
 

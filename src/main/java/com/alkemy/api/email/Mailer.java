@@ -8,8 +8,8 @@ import com.alkemy.api.models.UserModel;
 
 public class Mailer {
 
-    private static final String API_KEY = "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";
-    private static final String SENDER_EMAIL = "agusiri96@gmail.com";
+    private static final String API_KEY = "";
+    private static final String SENDER_EMAIL = "";
 
     public Mailer(){}
 

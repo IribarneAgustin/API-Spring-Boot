@@ -16,7 +16,7 @@ public class UserService {
     public UserModel save(UserModel user) {
 
         UserModel newUser = repository.save(user);
-
+        
         if (newUser != null) {
             mailer = new Mailer();
             mailer.sendEmail(newUser);

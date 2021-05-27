@@ -80,10 +80,10 @@ public class CharacterController {
     public String delete(@PathVariable("id") Integer id){
         boolean delete = service.delete(id);
         if(delete){
-            return "Se eleminó el usuario con el id " + id;
+            return "Se eleminó el personaje con el id " + id;
         }
         else{
-            return "No se pudo eleminar el usuario con el id " + id;
+            return "No se pudo eleminar el personaje con el id " + id;
         }
     }
 

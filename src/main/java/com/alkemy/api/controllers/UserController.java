@@ -21,6 +21,8 @@ public class UserController {
 	@PostMapping("/auth/register")
 	public UserModel save(@ModelAttribute UserModel user,@RequestParam("password") String password) {
 		user.setPassword(bCryptPasswordEncoder.encode(password));
+		Byte rol = 1;
+		user.setRol(rol);
 		return service.save(user);
 	}
     
