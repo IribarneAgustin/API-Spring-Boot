@@ -12,8 +12,8 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public ArrayList<MovieModel> getAll(){
-        return (ArrayList<MovieModel>) movieRepository.findAll();
+    public ArrayList<Object[]> getAll(){
+        return movieRepository.getAll();
     }
     public Optional<MovieModel> getById(Integer id){
         return movieRepository.findById(id);

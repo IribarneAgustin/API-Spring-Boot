@@ -16,6 +16,9 @@ public interface MovieRepository extends CrudRepository<MovieModel,Integer>{
 
     @Query(value = "SELECT * FROM movies ORDER BY creation_date DESC",nativeQuery = true)
     public ArrayList<MovieModel> getAllByOrderDESC();
+    
+    @Query(value = "SELECT title,image,creation_date FROM movies",nativeQuery = true)
+    public ArrayList<Object[]> getAll();
 
     
 }

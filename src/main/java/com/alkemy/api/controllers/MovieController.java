@@ -23,7 +23,7 @@ public class MovieController {
     private GenreService genreService;
 
     @GetMapping()
-    public ArrayList<MovieModel> getAll(){
+    public ArrayList<Object[]> getAll(){
         return service.getAll();
     }  
 
@@ -48,7 +48,7 @@ public class MovieController {
 
     // El método save sirve tanto para agregar un nuevo registro como para modificarlo
     @PostMapping("save")
-    public MovieModel save(@RequestParam("image") MultipartFile image, @ModelAttribute MovieModel movie){
+    public MovieModel save(@RequestParam("imageFile") MultipartFile image, @ModelAttribute MovieModel movie){
         
         if(!image.isEmpty()){
 

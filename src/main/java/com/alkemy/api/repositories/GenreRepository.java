@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface GenreRepository extends CrudRepository<GenreModel,Integer> {
     
     @Query(value = "SELECT movies_id FROM genres WHERE id = :genreId ",nativeQuery = true)
-    public ArrayList<Integer> getMoviesIdByGenre(@Param("genreId") Integer genreId);
-
+    public ArrayList<Integer> getMoviesIdByGenre(@Param("genreId") Integer genreId);    
     
     public abstract GenreModel getById(Integer genreId);
 
