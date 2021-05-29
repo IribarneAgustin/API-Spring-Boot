@@ -1,5 +1,5 @@
 package com.alkemy.api.models;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import javax.persistence.*;
 
@@ -64,8 +64,8 @@ public class MovieModel {
         return this.creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationDate(Date date) {
+        this.creationDate = date;
     }
 
     public Integer getCalification() {
