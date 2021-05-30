@@ -59,19 +59,19 @@ public class CharacterController {
         return service.getById(characterId);
     }
 
-    @GetMapping(value = "", params="name")
+    @GetMapping(params="name")
     public CharacterModel getByName(@RequestParam("name") String name){
         return service.getByName(name);
     }
-    @GetMapping(value = "", params="age")
+    @GetMapping(params="age")
     public CharacterModel getByAge(@RequestParam("age") Integer age){
         return service.getByAge(age);
     }
-    @GetMapping(value = "", params="weight")
+    @GetMapping(params="weight")
     public CharacterModel getByWeight(@RequestParam("weight") Double weight){
         return service.getByWeight(weight);
     }
-    @GetMapping(value = "", params="idMovie")
+    @GetMapping(params="idMovie")
     public ArrayList<CharacterModel> getByMovieId(@RequestParam("idMovie") Integer idMovie){
         return service.getByMovieId(idMovie);
     }

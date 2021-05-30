@@ -1,5 +1,6 @@
 package com.alkemy.api.controllers;
 import java.util.ArrayList;
+import java.util.Optional;
 import com.alkemy.api.models.CharacterModel;
 import com.alkemy.api.services.CharacterService;
 import org.junit.jupiter.api.Order;
@@ -22,7 +23,7 @@ import static org.hamcrest.CoreMatchers.*;
 public class CharacterControllerTest {
 
     @TestConfiguration
-    static class EmployeeServiceImplTestContextConfiguration {
+    static class CharacterServiceImplTestContextConfiguration {
         @Bean
         public CharacterService characterService() {
             return new CharacterService() {
@@ -56,7 +57,6 @@ public class CharacterControllerTest {
         Boolean response = characterService.delete(1);
         assertTrue(response == true);
     }
-
 
     @Test
     @Order(2)
@@ -121,6 +121,36 @@ public class CharacterControllerTest {
 
         CharacterModel characterSaved = characterService.save(character);
         assertTrue(characterSaved != null);
+    }
+    @Test
+    @Order(9)
+    public void testUpdateCharacter() throws Exception {
+
+        addData();
+        ArrayList<Integer> filmId = new ArrayList<>();
+        CharacterModel character = new CharacterModel();
+
+        Optional<CharacterModel> movieToUpdate = characterService.getById(9);
+        character = movieToUpdate.get();
+        
+        character.setId(9);
+        character.setName("Test");
+        character.setImage("image.jpg");
+        character.setAge(50);
+        character.setWeight(100.00);
+        character.setHistory("history");
+        character.setFilmId(filmId);
+
+        CharacterModel characterSaved = characterService.save(character);
+
+        assertThat(characterSaved.getId(), equalTo(9));
+        assertThat(characterSaved.getName(), equalTo("Test"));
+        assertThat(characterSaved.getImage(), equalTo("image.jpg"));
+        assertThat(characterSaved.getAge(), equalTo(50));
+        assertThat(characterSaved.getWeight(), equalTo(100.00));
+        assertThat(characterSaved.getHistory(), equalTo("history"));
+        assertThat(characterSaved.getFilmId(), equalTo(filmId));
+  
     }
 
 

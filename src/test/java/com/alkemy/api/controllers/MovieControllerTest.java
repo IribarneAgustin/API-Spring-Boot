@@ -1,8 +1,7 @@
 package com.alkemy.api.controllers;
-
 import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.Optional;
 import com.alkemy.api.models.MovieModel;
 import com.alkemy.api.services.MovieService;
 import org.junit.jupiter.api.Order;
@@ -25,7 +24,7 @@ import static org.hamcrest.CoreMatchers.*;
 public class MovieControllerTest {
 
     @TestConfiguration
-    static class EmployeeServiceImplTestContextConfiguration {
+    static class MovieServiceImplTestContextConfiguration {
         @Bean
         public MovieService movieService() {
             return new MovieService() {
@@ -42,15 +41,15 @@ public class MovieControllerTest {
         ArrayList<Integer> charactersId = new ArrayList<>();
         charactersId.add(1);
         charactersId.add(2);
-        MovieModel movie = new MovieModel();   
+        MovieModel movie = new MovieModel();
         Date date = new Date();
-        movie.setTitle("example");   
+        movie.setTitle("example");
         movie.setCreationDate(date);
         movie.setCalification(5);
         movie.setImage("image.jpg");
         movie.setCharactersId(charactersId);
         movieService.save(movie);
-    
+
     }
 
     @Test
@@ -76,6 +75,7 @@ public class MovieControllerTest {
         ArrayList<Object[]> movies = movieService.getAll();
         assertThat(movies.size(), equalTo(1));
     }
+
     @Test
     @Order(4)
     public void testGetByTitle() {
@@ -83,12 +83,76 @@ public class MovieControllerTest {
         MovieModel movie = movieService.getByTitle("example");
         assertTrue(movie != null);
     }
+
     @Test
     @Order(5)
     public void testGetByOrderASC() {
         addData();
-        MovieModel movie = movieService.getByTitle("example");
-        assertTrue(movie != null);
+        ArrayList<MovieModel> movies = movieService.getByOrder("ASC");
+        assertTrue(movies != null);
+    }
+
+    @Test
+    @Order(6)
+    public void testGetByOrderDESC() {
+        addData();
+        ArrayList<MovieModel> movies = movieService.getByOrder("DESC");
+        assertTrue(movies != null);
+    }
+
+    @Test
+    @Order(7)
+    public void testAddMovie() throws Exception {
+
+        ArrayList<Integer> charactersId = new ArrayList<>();
+        charactersId.add(1);
+        charactersId.add(2);
+        MovieModel movie = new MovieModel();
+        Date date = new Date();
+        movie.setTitle("example");
+        movie.setCreationDate(date);
+        movie.setCalification(5);
+        movie.setImage("image.jpg");
+        movie.setCharactersId(charactersId);
+        MovieModel movieSaved = movieService.save(movie);
+
+        assertTrue(movieSaved != null);
+    }
+
+    @Test
+    @Order(8)
+    public void testUpdateMovie() throws Exception {
+
+        //Agregamos un nuevo registro
+        addData();
+        MovieModel movie = new MovieModel();
+
+        //Lo traemos
+        Optional<MovieModel> movieToUpdate = movieService.getById(8);
+        movie = movieToUpdate.get();
+
+        //Lo modificamos
+        ArrayList<Integer> charactersId = new ArrayList<>();
+        charactersId.add(1);
+        charactersId.add(2);
+        Date date = new Date();
+        movie.setId(8);
+        movie.setTitle("example");
+        movie.setCreationDate(date);
+        movie.setCalification(5);
+        movie.setImage("image.jpg");
+        movie.setCharactersId(charactersId);
+
+        //Lo guardamos
+        MovieModel movieSaved = movieService.save(movie);
+
+        //Comprobamos que se haya modificado correctamente
+        assertThat(movieSaved.getTitle(), equalTo("example"));
+        assertThat(movieSaved.getCreationDate(), equalTo(date));
+        assertThat(movieSaved.getCalification(), equalTo(5));
+        assertThat(movieSaved.getImage(), equalTo("image.jpg"));
+        assertThat(movieSaved.getCharactersId(), equalTo(charactersId));
+        assertThat(movieSaved.getId(), equalTo(8));
     }
 
 }
